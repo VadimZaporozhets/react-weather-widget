@@ -1,0 +1,59 @@
+@import 'constants';
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+%font-shared {
+    color: $font-color;
+    font-family: $font-stack;
+}
+
+.weather-widget {
+    background-color: $primary-dark;
+    width: 550px;
+    padding: 20px 30px;
+    margin: 0 auto;
+}
+.current-weater {
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.days {
+    display: flex;
+}
+.day {
+    background-color: $primary-dark;
+    padding: 10px;
+    width: 70px;
+    &:nth-child(2n) {
+        background-color: $secondary-dark;
+    }
+    &__label {
+        text-align: center;
+        text-transform: uppercase;
+        @extend %font-shared;
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+    &__icon {
+        margin: 0 auto 35px;
+        color: $icon-color-primary;
+    }
+    &__max {
+        @extend %font-shared;
+        font-weight: 700;
+        font-size: 24px;
+        text-align: center;
+    }
+    &__min {
+        @extend %font-shared;
+        font-weight: 700;
+        font-size: 16px;
+        color: $font-color-secondary;
+        text-align: center;
+    }
+}
