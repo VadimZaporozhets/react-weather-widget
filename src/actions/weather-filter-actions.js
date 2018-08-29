@@ -1,12 +1,7 @@
-import {CHANGE_CITY_ID, CHANGE_UNITS} from '../constants';
-
-export const changeCityId = (cityId) => ({
-    type: CHANGE_CITY_ID,
-    payload: cityId
-});
+import {CHANGE_UNITS} from '../constants';
 
 export const changeUnits = (units) => ({
-    type: CHANGE_CITY_ID,
+    type: CHANGE_UNITS,
     payload: units
 });
 

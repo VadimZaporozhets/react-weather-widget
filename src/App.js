@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import WeatherWidget from './components/WeatherWidget';
 import './main.css';
+import WeatherWidget from './containers/weather-widget/WeatherWidget';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <section className="weather-widget">
         <WeatherWidget/>
-      </div>
+      </section>
     );
   }
 }

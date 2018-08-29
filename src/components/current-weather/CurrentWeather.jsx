@@ -1,7 +1,7 @@
 import React from 'react';
 import { WEATHER_ICON_DOMAIN } from '../../constants';
 
-const Header = ({currentLocation, currentDay, currentIcon, currentTemp, currentMinTemp, currentMaxTemp}) => {
+const CurrentWeather = ({currentLocation, currentDay, currentIcon, currentTemp, currentMinTemp, currentMaxTemp}) => {
     return (
         <header className="current-weather">
             <div className="current-weather__data">
@@ -20,4 +20,4 @@ const Header = ({currentLocation, currentDay, currentIcon, currentTemp, currentM
     );
 }
 
-export default Header;
+export default CurrentWeather;

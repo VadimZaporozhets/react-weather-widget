@@ -7,13 +7,13 @@ import {
     OPEN_WEATHER_API_KEY_PARAM
 } from '../constants';
 
-export const fetchCurrentWeather = () => {
+export const fetchCurrentWeather = (cityId) => {
     return (dispatch) => {
         dispatch({
             type: GET_CURRENT_WEATHER
         });
 
-        fetch(`${OPEN_WEATHER_API_DOMAIN}${OPEN_WEATHER_API_CURRENT}?id=524901&${OPEN_WEATHER_API_KEY_PARAM}`)
+        fetch(`${OPEN_WEATHER_API_DOMAIN}${OPEN_WEATHER_API_CURRENT}?id=${cityId}&${OPEN_WEATHER_API_KEY_PARAM}`)
             .then(res => res.json())
             .then(res => {
                 dispatch({

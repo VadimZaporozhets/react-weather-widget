@@ -47,15 +47,16 @@
     .forecast__tile:nth-child(2n) {
       background-color: #181818; }
     .forecast__tile--deg {
-      font-size: 18px;
+      font-size: 16px;
       text-align: center; }
     .forecast__tile--icon {
       display: block;
-      margin: 0 auto; }
+      margin: 0 auto;
+      width: 30px; }
     .forecast__tile--time {
       text-align: center;
       font-weight: 700;
-      font-size: 16px;
+      font-size: 14px;
       color: #06A9ED; }
 
 .days {

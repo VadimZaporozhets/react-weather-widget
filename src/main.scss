@@ -65,18 +65,19 @@
         }
         &--deg {
             @extend %font-shared;
-            font-size: 18px;
+            font-size: 16px;
             text-align: center;
         }
         &--icon {
             display: block;
             margin: 0 auto;
+            width: 30px;
         }
         &--time {
             @extend %font-shared;
             text-align: center;
             font-weight: 700;
-            font-size: 16px;
+            font-size: 14px;
             color: $font-color-secondary;
         }
     }
