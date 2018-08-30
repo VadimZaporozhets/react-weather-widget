@@ -4,6 +4,8 @@ export const OPEN_WEATHER_API_CURRENT = 'weather';
 export const OPEN_WEATHER_API_FORECAST = 'forecast';
 export const OPEN_WEATHER_API_KEY_PARAM = 'APPID=3ee467f299628f10d4fd340c05092c7f';
 
+export const daysNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+
 //Actions constants: 
 
 export const CHANGE_UNITS = 'CHANGE_UNITS';

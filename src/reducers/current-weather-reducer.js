@@ -4,6 +4,7 @@ const currentWeatherReducer = (
     state = {
         currentWeather: {},
         isLoading: false,
+        isFetched: false,
         error: ''
     },
     action
@@ -12,12 +13,14 @@ const currentWeatherReducer = (
         case GET_CURRENT_WEATHER:
             return {
                 ...state,
-                isLoading: true
+                isLoading: true,
+                isFetched: false
             }
         case GET_CURRENT_WEATHER_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
+                isFetched: true,
                 error: '',
                 currentWeather: action.payload
             }
@@ -25,6 +28,7 @@ const currentWeatherReducer = (
             return {
                 ...state,
                 isLoading: false,
+                isFetched: false,
                 error: action.payload
             }
         default:
