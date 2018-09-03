@@ -6,6 +6,8 @@ To start the app run
 
 in console. After that the widget should be opened in new tab on localhost:3000.
 
+![Weather Widget Snapshot](public/weather-widget-snap.png?raw=true "Weather Widget Snapshot")
+
 This widget shows the current weather at the top, forecast by day in the middle and forecast by dates at the bottom.
 
 Click on different date tile to show forecast by day related to this date.
