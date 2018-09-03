@@ -2,7 +2,7 @@ This is the weather widget app implemented with React and Redux.
 
 To start the app run
 
-#npm start
+# npm start
 
 in console. After that the widget should be opened in new tab on localhost:3000.
 
