@@ -24,6 +24,8 @@
     .current-weather__data--current {
       font-weight: 700;
       font-size: 40px; }
+      .current-weather__data--current span {
+        cursor: pointer; }
     .current-weather__data--min {
       font-size: 18px; }
   .current-weather__date-loc {
@@ -64,6 +66,7 @@
 
 .day {
   flex: 1 0 0;
+  cursor: pointer;
   background-color: #282828;
   padding: 10px;
   width: 70px; }

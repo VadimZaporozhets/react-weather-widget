@@ -10,7 +10,7 @@ const weatherFilterReducer = (
         case CHANGE_UNITS:
             return {
                 ...state,
-                currentUnits: action.payload
+                currentUnits: state.currentUnits === 'C' ? 'F' : 'C'
             }
         default:
             return state;

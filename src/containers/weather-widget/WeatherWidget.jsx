@@ -8,59 +8,6 @@ import ForecastByDay from '../../components/forecast-by-day/ForecastByDay';
 import ForecastByDate from '../../components/forecast-by-date/ForecastByDate';
 import {daysNames} from '../../constants';
 
-const DAYS = [
-    {
-        label: 'Thu',
-        icon: '04d',
-        min: 22,
-        max: 11
-    },
-    {
-        label: 'Fri',
-        icon: '04d',
-        min: 22,
-        max: 11
-    },
-    {
-        label: 'Sat',
-        icon: '04d',
-        min: 22,
-        max: 11
-    },
-    {
-        label: 'Sat',
-        icon: '04d',
-        min: 22,
-        max: 11
-    }
-    ,
-    {
-        label: 'Sat',
-        icon: '04d',
-        min: 22,
-        max: 11
-    }
-];
-
-const forecastTilesInfo = [
-    {
-        time: '12:00',
-        icon: '04d',
-        deg: 22
-    },
-    {
-        time: '12:00',
-        icon: '04d',
-        deg: 22
-    },
-    {
-        time: '12:00',
-        icon: '04d',
-        deg: 22
-    }
-];
-
-
 class WeatherWidget extends Component {
     constructor(props) {
         super(props);
@@ -68,6 +15,16 @@ class WeatherWidget extends Component {
         this.defaultCityId = 703448;
         this.props.fetchCurrentWeather(this.defaultCityId);
         this.props.fetchWeatherForecast(this.defaultCityId);
+
+        this.state = {
+            selectedDate: this.formatCurrentSelectedDate()
+        }
+    }
+
+    changeSelectedDate = (date) => {
+        this.setState({
+            selectedDate: date
+        });
     }
 
     formatCurrentWeather = (currentWeatherObj) => {
@@ -84,23 +41,77 @@ class WeatherWidget extends Component {
         }
     }
 
+    formatForecastByDays = () => {
+        const {weatherForecast} = this.props;
+        let min, max, icon, label, dt;
+        let daysArray = [];
+
+        for (let day in weatherForecast) {
+            const curDayArr = weatherForecast[day];
+            const middleElem = curDayArr[Math.floor(curDayArr.length / 2)];
+            label = daysNames[this.getFormatedDate(middleElem.dt).getDay()].substring(0,3);
+            icon = middleElem.weather[0].icon;
+            min = this.formatDegrees(Math.min.apply(Math, curDayArr.map((item) => item.main.temp_min)));
+            max = this.formatDegrees(Math.max.apply(Math, curDayArr.map((item) => item.main.temp_max)));
+            dt = day;
+            daysArray = [...daysArray, {label, min, max, icon, dt}];
+        }
+
+        return daysArray;
+    }
+
+    formatForecastByDay = () => {
+        const {weatherForecast} = this.props;
+        let {selectedDate} = this.state;
+
+        return weatherForecast[selectedDate].map((item) => {
+            const hours = this.getFormatedDate(item.dt).getHours();
+            const minutesNonFormated = this.getFormatedDate(item.dt).getMinutes()
+            const minutes = minutesNonFormated < 10 ? minutesNonFormated + '0' : minutesNonFormated;
+            const icon = item.weather[0].icon;
+            const deg = this.formatDegrees(item.main.temp);
+            return {
+                time: `${hours}:${minutes}`,
+                icon,
+                deg
+            }
+        });
+    }
+
     formatDegrees = (deg) => {
         return this.props.currentUnits === 'C' ? Math.round(deg-273.15) : Math.round(deg*9/5-459.67);
     }
 
     getFormatedDate = (dtValue) => {
-        return new Date(dtValue * 1000);
+        const date = new Date(dtValue * 1000);
+        return new Date(date.valueOf() + date.getTimezoneOffset() * 60000);
+    }
+
+    changeUnits = () => {
+        this.props.changeUnits();
+    }
+
+    formatCurrentSelectedDate = () => {
+        const today = new Date();
+        const correctDay = this.getFormatedDate(today.valueOf() / 1000);
+        const dateMonth = correctDay.getMonth() < 10 ? '0' + (correctDay.getMonth() + 1) : correctDay.getMonth() + 1;
+        const dateDay = correctDay.getUTCDate() < 10 ? '0' + (correctDay.getUTCDate()) : correctDay.getUTCDate();
+        return `${correctDay.getFullYear()}-${dateMonth}-${dateDay}`;
     }
 
     render() {
-        const {currentWeather, currentWeatherFetched} = this.props;
+        const {currentWeather, currentWeatherFetched, weatherForecastFetched, currentUnits} = this.props;
         const currentWeatherObj = currentWeatherFetched && this.formatCurrentWeather(currentWeather);
 
         return (
             <Fragment>
-                {currentWeatherFetched && <CurrentWeather {...currentWeatherObj} />}
-                <ForecastByDay tiles={forecastTilesInfo} />
-                <ForecastByDate days={DAYS} />
+                {currentWeatherFetched && <CurrentWeather changeUnits={this.changeUnits} {...currentWeatherObj} />}
+                {weatherForecastFetched && 
+                    <Fragment>
+                        <ForecastByDay currentUnits={currentUnits} tiles={this.formatForecastByDay()} />
+                        <ForecastByDate currentUnits={currentUnits} onClick={this.changeSelectedDate} days={this.formatForecastByDays()} />
+                    </Fragment>
+                }
             </Fragment>
         );
     }
@@ -115,6 +126,7 @@ const mapStateToProps = (state) => {
         currentUnits: state.weatherFilter.currentUnits,
         weatherForecast: state.weatherForecast.weatherForecast,
         weatherForecastError: state.weatherForecast.error,
+        weatherForecastFetched: state.weatherForecast.isFetched,
         weatherForecastLoading: state.weatherForecast.isLoading
     }
 }

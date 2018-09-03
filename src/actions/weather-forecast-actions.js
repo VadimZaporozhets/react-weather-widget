@@ -18,7 +18,7 @@ export const fetchWeatherForecast = (cityId) => {
             .then(res => {
                 dispatch({
                     type: GET_WEATHER_FORECAST_SUCCESS,
-                    payload: res
+                    payload: formatForecastByDates(res.list)
                 });
             })
             .catch(err => {
@@ -28,4 +28,12 @@ export const fetchWeatherForecast = (cityId) => {
                 });
             })
     }
+}
+
+const formatForecastByDates = (forecastList) => {
+    return forecastList.reduce((forecastObj, day) => {
+        const date = day.dt_txt.split(' ')[0];
+        forecastObj[date] = forecastObj[date] ? [...forecastObj[date], day] : [day];           
+        return forecastObj
+    }, {});
 }

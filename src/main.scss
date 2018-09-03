@@ -31,6 +31,9 @@
             @extend %font-shared;
             font-weight: 700;
             font-size: 40px;
+            span {
+                cursor: pointer;
+            }
         }
         &--min {
             @extend %font-shared;
@@ -86,7 +89,8 @@
     display: flex;
 }
 .day {
-    flex: 1 0 0; 
+    flex: 1 0 0;
+    cursor: pointer;
     background-color: $primary-dark;
     padding: 10px;
     width: 70px;

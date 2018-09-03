@@ -1,18 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ForecastTile from '../forecast-tile/ForecastTile';
 
-class ForecastByDay extends Component {
-    renderTiles = () => {
-        return this.props.tiles.map((tile, i) => <ForecastTile key={i} {...tile} />);
-    }
-
-    render() {
-        return (
-            <section className="forecast">
-                {this.renderTiles()}
-            </section>
-        );
-    }
+const ForecastByDay = ({currentUnits, tiles}) => {
+    return (
+        <section className="forecast">
+            {tiles.map((tile, i) => <ForecastTile currentUnits={currentUnits} key={i} {...tile} />)}
+        </section>
+    );
 }
 
 export default ForecastByDay;
